@@ -10,11 +10,13 @@ class FarmSerializer(serializers.ModelSerializer):
         fields = ['id', 'owner', 'name', 'location', 'size']
 
 class CropSerializer(serializers.ModelSerializer):
+    farm = serializers.ReadOnlyField(source='farm.name')
     class Meta:
         model = Crop
-        fields = '__all__'
+        fields = ['id', 'farm', 'name', 'type', 'planting_date', 'harvest_date']
 
 class AnimalSerializer(serializers.ModelSerializer):
+    farm = serializers.ReadOnlyField(source='farm.name')
     class Meta:
         model = Animal
-        fields = '__all__'
+        fields = ['id', 'farm', 'name', 'type', 'birth_date', 'death_date']
