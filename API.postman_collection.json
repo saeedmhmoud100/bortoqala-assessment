@@ -190,7 +190,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "any end point for the Animals will depinding on \\[farm id\\]"
 		},
 		{
 			"name": "Crop",
@@ -388,7 +389,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "any end point here for the crops will depinding on \\[farm id\\]"
 		},
 		{
 			"name": "Farm",

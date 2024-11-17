@@ -3,11 +3,6 @@ from rest_framework import serializers
 from farms.models import Farm, Crop, Animal
 
 
-class FarmSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
-    class Meta:
-        model = Farm
-        fields = ['id', 'owner', 'name', 'location', 'size']
 
 class CropSerializer(serializers.ModelSerializer):
     farm = serializers.ReadOnlyField(source='farm.name')
@@ -20,3 +15,12 @@ class AnimalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Animal
         fields = ['id', 'farm', 'name','species' , 'birth_date']
+
+class FarmSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+    crops = CropSerializer(many=True, read_only=True,source='crop_set')
+    animals = AnimalSerializer(many=True, read_only=True,source='animal_set')
+    class Meta:
+        model = Farm
+        fields = ['id', 'owner', 'name', 'location', 'size', 'crops', 'animals']
+
