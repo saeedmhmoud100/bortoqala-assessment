@@ -1,0 +1,790 @@
+{
+	"info": {
+		"_postman_id": "ad511bcc-a6c4-4e52-8e23-b7f75c2a9464",
+		"name": "API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14788230",
+		"_collection_link": "https://www.postman.com/interstellar-station-543920/workspace/bortoqala-assessment/collection/14788230-ad511bcc-a6c4-4e52-8e23-b7f75c2a9464?action=share&source=collection_link&creator=14788230"
+	},
+	"item": [
+		{
+			"name": "Animal",
+			"item": [
+				{
+					"name": "get all farms' Animals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/farms/1/crops",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"farms",
+								"1",
+								"crops"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one farm's Animal",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/farms/1/animals/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"farms",
+								"1",
+								"animals",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create Animal",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "species",
+									"value": "sdafsd",
+									"type": "text"
+								},
+								{
+									"key": "birth_date",
+									"value": "2024-05-05",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/farms/1/animals/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"farms",
+								"1",
+								"animals",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update Animal",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "testttttttt",
+									"type": "text"
+								},
+								{
+									"key": "species",
+									"value": "sdafsd",
+									"type": "text"
+								},
+								{
+									"key": "birth_date",
+									"value": "2024-05-05",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/farms/1/animals/1/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"farms",
+								"1",
+								"animals",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Animal",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/api/farms/2/animals/3/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"farms",
+								"2",
+								"animals",
+								"3",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Crop",
+			"item": [
+				{
+					"name": "get all farms' Crops",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/farms/1/crops",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"farms",
+								"1",
+								"crops"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one farm's crop",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/farms/1/crops/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"farms",
+								"1",
+								"crops",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create crop",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "sdafsd",
+									"type": "text"
+								},
+								{
+									"key": "planting_date",
+									"value": "2024-05-05",
+									"type": "text"
+								},
+								{
+									"key": "harvest_date",
+									"value": "2024-05-05",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/farms/1/crops/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"farms",
+								"1",
+								"crops",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update crop",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "testttt",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "sdafsd",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "planting_date",
+									"value": "2024-05-05",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "harvest_date",
+									"value": "2024-05-05",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/farms/1/crops/4/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"farms",
+								"1",
+								"crops",
+								"4",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete crop",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/api/farms/2/crops/3/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"farms",
+								"2",
+								"crops",
+								"3",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Farm",
+			"item": [
+				{
+					"name": "get all farms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/farms",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"farms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one farm",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/farms/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"farms",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create farm",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "sdafsd",
+									"type": "text"
+								},
+								{
+									"key": "size",
+									"value": "30",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/farms/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"farms",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update farm",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "testtttt",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "sdafsd",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "30",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/farms/2/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"farms",
+								"2",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete farm",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/api/farms/3/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"farms",
+								"3",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"JWT\", pm.response.json().access);\r",
+											"pm.environment.set(\"refresh\", pm.response.json().refresh);\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/api/login",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "signup",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "user4",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456+Qq",
+											"type": "text"
+										},
+										{
+											"key": "phone_number",
+											"value": "",
+											"description": "optional",
+											"type": "text"
+										},
+										{
+											"key": "address",
+											"value": "",
+											"description": "optional",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "",
+											"description": "optional",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/api/signup",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"api",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "refresh token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"JWT\", pm.response.json().access);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "refresh",
+											"value": "{{refresh}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/api/token/refresh",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"api",
+										"token",
+										"refresh"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.unset(\"JWT\");\r",
+											"pm.environment.unset(\"refresh\");\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "_",
+									"host": [
+										"_"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get logged user profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
