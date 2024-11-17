@@ -269,3 +269,117 @@ class CropViewsTests(APITestCase):
         self.assertEqual(crop.type, 'Type')
         self.assertEqual(str(crop.planting_date), '2020-01-01')
         self.assertEqual(str(crop.harvest_date), '2020-12-31')
+
+
+class AnimalViewsTests(APITestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(username='user', password='123456@Qq')
+        self.user2 = get_user_model().objects.create_user(username='user2', password='123456@Qq')
+
+    def test_animal_create(self):
+        farm = Farm.objects.create(
+            owner=self.user,
+            name='Farm',
+            location='Location',
+            size=100.0)
+        self.client.force_authenticate(user=self.user)
+        response = self.client.post(f'/api/farms/{farm.id}/animals/', {
+            'name': 'Animal',
+            'species': 'Species',
+            'birth_date': '2020-01-01',
+        })
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(Animal.objects.count(), 1)
+
+    def test_animal_list(self):
+        farm = Farm.objects.create(
+            owner=self.user,
+            name='Farm',
+            location='Location',
+            size=100.0)
+        animal = Animal.objects.create(
+            farm=farm,
+            name='Animal',
+            species='Species',
+            birth_date='2020-01-01')
+        self.client.force_authenticate(user=self.user)
+        response = self.client.get(f'/api/farms/{farm.id}/animals/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_animal_retrieve(self):
+        farm = Farm.objects.create(
+            owner=self.user,
+            name='Farm',
+            location='Location',
+            size=100.0)
+        animal = Animal.objects.create(
+            farm=farm,
+            name='Animal',
+            species='Species',
+            birth_date='2020-01-01')
+        self.client.force_authenticate(user=self.user)
+        response = self.client.get(f'/api/farms/{farm.id}/animals/{animal.id}/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_animal_update(self):
+        farm = Farm.objects.create(
+            owner=self.user,
+            name='Farm',
+            location='Location',
+            size=100.0)
+        animal = Animal.objects.create(
+            farm=farm,
+            name='Animal',
+            species='Species',
+            birth_date='2020-01-01')
+        self.client.force_authenticate(user=self.user)
+        response = self.client.patch(f'/api/farms/{farm.id}/animals/{animal.id}/', {
+            'name': 'Animal 2',
+            'species': 'Species 2',
+            'birth_date': '2020-01-02',
+        })
+        self.assertEqual(response.status_code, 200)
+        animal.refresh_from_db()
+        self.assertEqual(animal.name, 'Animal 2')
+        self.assertEqual(animal.species, 'Species 2')
+        self.assertEqual(str(animal.birth_date), '2020-01-02')
+
+    def test_animal_delete(self):
+        farm = Farm.objects.create(
+            owner=self.user,
+            name='Farm',
+            location='Location',
+            size=100.0)
+        animal = Animal.objects.create(
+            farm=farm,
+            name='Animal',
+            species='Species',
+            birth_date='2020-01-01')
+        self.client.force_authenticate(user=self.user)
+        response = self.client.delete(f'/api/farms/{farm.id}/animals/{animal.id}/')
+        self.assertEqual(response.status_code, 204)
+        self.assertEqual(Animal.objects.count(), 0)
+
+    def test_animal_update_other_user(self):
+        farm = Farm.objects.create(
+            owner=self.user2,
+            name='Farm',
+            location='Location',
+            size=100.0)
+        animal = Animal.objects.create(
+            farm=farm,
+            name='Animal',
+            species='Species',
+            birth_date='2020-01-01')
+        self.client.force_authenticate(user=self.user)
+        response = self.client.put(f'/api/farms/{farm.id}/animals/{animal.id}/', {
+            'name': 'Animal 2',
+            'species': 'Species 2',
+            'birth_date': '2020-01-02',
+        })
+        self.assertEqual(response.status_code, 403)
+        animal.refresh_from_db()
+        self.assertEqual(animal.name, 'Animal')
+        self.assertEqual(animal.species, 'Species')
+        self.assertEqual(str(animal.birth_date), '2020-01-01')
+

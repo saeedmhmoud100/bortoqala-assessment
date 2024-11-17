@@ -19,4 +19,4 @@ class AnimalSerializer(serializers.ModelSerializer):
     farm = serializers.ReadOnlyField(source='farm.name')
     class Meta:
         model = Animal
-        fields = ['id', 'farm', 'name', 'birth_date']
+        fields = ['id', 'farm', 'name','species' , 'birth_date']
