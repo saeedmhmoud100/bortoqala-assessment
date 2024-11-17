@@ -72,7 +72,7 @@ class ModelsTests(TestCase):
         self.assertEqual(farm.animal_set.count(), 1)
 
 
-class ViewsTests(APITestCase):
+class FarmViewsTests(APITestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(username='user', password='123456@Qq')
         self.user2 = get_user_model().objects.create_user(username='user2', password='123456@Qq')
@@ -113,7 +113,6 @@ class ViewsTests(APITestCase):
             'location': 'Location 2',
             'size': 200.0,
         })
-        print(response.data)
         self.assertEqual(response.status_code, 200)
         farm.refresh_from_db()
         self.assertEqual(farm.name, 'Farm 2')
@@ -149,3 +148,124 @@ class ViewsTests(APITestCase):
         self.assertEqual(farm.location, 'Location')
         self.assertEqual(farm.size, 100.0)
 
+class CropViewsTests(APITestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(username='user', password='123456@Qq')
+        self.user2 = get_user_model().objects.create_user(username='user2', password='123456@Qq')
+
+    def test_crop_create(self):
+        farm = Farm.objects.create(
+            owner=self.user,
+            name='Farm',
+            location='Location',
+            size=100.0)
+        self.client.force_authenticate(user=self.user)
+        response = self.client.post(f'/api/farms/{farm.id}/crops/', {
+            'name': 'Crop',
+            'type': 'Type',
+            'planting_date': '2020-01-01',
+            'harvest_date': '2020-12-31',
+        })
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(Crop.objects.count(), 1)
+
+    def test_crop_list(self):
+        farm = Farm.objects.create(
+            owner=self.user,
+            name='Farm',
+            location='Location',
+            size=100.0)
+        crop = Crop.objects.create(
+            farm=farm,
+            name='Crop',
+            type='Type',
+            planting_date='2020-01-01',
+            harvest_date='2020-12-31')
+        self.client.force_authenticate(user=self.user)
+        response = self.client.get(f'/api/farms/{farm.id}/crops/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_crop_retrieve(self):
+        farm = Farm.objects.create(
+            owner=self.user,
+            name='Farm',
+            location='Location',
+            size=100.0)
+        crop = Crop.objects.create(
+            farm=farm,
+            name='Crop',
+            type='Type',
+            planting_date='2020-01-01',
+            harvest_date='2020-12-31')
+        self.client.force_authenticate(user=self.user)
+        response = self.client.get(f'/api/farms/{farm.id}/crops/{crop.id}/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_crop_update(self):
+        farm = Farm.objects.create(
+            owner=self.user,
+            name='Farm',
+            location='Location',
+            size=100.0)
+        crop = Crop.objects.create(
+            farm=farm,
+            name='Crop',
+            type='Type',
+            planting_date='2020-01-01',
+            harvest_date='2020-12-31')
+        self.client.force_authenticate(user=self.user)
+        response = self.client.patch(f'/api/farms/{farm.id}/crops/{crop.id}/', {
+            'name': 'Crop 2',
+            'type': 'Type 2',
+            'planting_date': '2020-01-02',
+            'harvest_date': '2020-12-30',
+        })
+        self.assertEqual(response.status_code, 200)
+        crop.refresh_from_db()
+        self.assertEqual(crop.name, 'Crop 2')
+        self.assertEqual(crop.type, 'Type 2')
+        self.assertEqual(str(crop.planting_date), '2020-01-02')
+        self.assertEqual(str(crop.harvest_date), '2020-12-30')
+
+    def test_crop_delete(self):
+        farm = Farm.objects.create(
+            owner=self.user,
+            name='Farm',
+            location='Location',
+            size=100.0)
+        crop = Crop.objects.create(
+            farm=farm,
+            name='Crop',
+            type='Type',
+            planting_date='2020-01-01',
+            harvest_date='2020-12-31')
+        self.client.force_authenticate(user=self.user)
+        response = self.client.delete(f'/api/farms/{farm.id}/crops/{crop.id}/')
+        self.assertEqual(response.status_code, 204)
+        self.assertEqual(Crop.objects.count(), 0)
+
+    def test_crop_update_other_user(self):
+        farm = Farm.objects.create(
+            owner=self.user2,
+            name='Farm',
+            location='Location',
+            size=100.0)
+        crop = Crop.objects.create(
+            farm=farm,
+            name='Crop',
+            type='Type',
+            planting_date='2020-01-01',
+            harvest_date='2020-12-31')
+        self.client.force_authenticate(user=self.user)
+        response = self.client.put(f'/api/farms/{farm.id}/crops/{crop.id}/', {
+            'name': 'Crop 2',
+            'type': 'Type 2',
+            'planting_date': '2020-01-02',
+            'harvest_date': '2020-12-30',
+        })
+        self.assertEqual(response.status_code, 403)
+        crop.refresh_from_db()
+        self.assertEqual(crop.name, 'Crop')
+        self.assertEqual(crop.type, 'Type')
+        self.assertEqual(str(crop.planting_date), '2020-01-01')
+        self.assertEqual(str(crop.harvest_date), '2020-12-31')
