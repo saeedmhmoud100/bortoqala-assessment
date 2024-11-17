@@ -1,4 +1,6 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, serializers
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+
 from farms.models import Farm, Crop, Animal
 from farms.permissions import IsFarmOwnerOrReadOnly, IsAssociatedFarmOwnerOrReadOnly
 from farms.serializer import FarmSerializer, CropSerializer, AnimalSerializer
@@ -12,6 +14,8 @@ class FarmViewSet(viewsets.ModelViewSet):
     serializer_class = FarmSerializer
     permission_classes = [IsFarmOwnerOrReadOnly]
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 class CropViewSet(viewsets.ModelViewSet):
     queryset = Crop.objects.all()

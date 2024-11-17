@@ -4,9 +4,10 @@ from farms.models import Farm, Crop, Animal
 
 
 class FarmSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
     class Meta:
         model = Farm
-        fields = '__all__'
+        fields = ['id', 'owner', 'name', 'location', 'size']
 
 class CropSerializer(serializers.ModelSerializer):
     class Meta:
