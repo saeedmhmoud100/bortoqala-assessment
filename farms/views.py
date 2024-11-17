@@ -1,7 +1,7 @@
 from rest_framework import viewsets
-from farms.models import Farm, Crop
+from farms.models import Farm, Crop, Animal
 from farms.permissions import IsFarmOwnerOrReadOnly, IsAssociatedFarmOwnerOrReadOnly
-from farms.serializer import FarmSerializer, CropSerializer
+from farms.serializer import FarmSerializer, CropSerializer, AnimalSerializer
 
 
 # Create your views here.
@@ -16,6 +16,11 @@ class FarmViewSet(viewsets.ModelViewSet):
 class CropViewSet(viewsets.ModelViewSet):
     queryset = Crop.objects.all()
     serializer_class = CropSerializer
+    permission_classes = [IsAssociatedFarmOwnerOrReadOnly]
+
+class AnimalViewSet(viewsets.ModelViewSet):
+    queryset = Animal.objects.all()
+    serializer_class = AnimalSerializer
     permission_classes = [IsAssociatedFarmOwnerOrReadOnly]
 
 
